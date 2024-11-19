@@ -1,0 +1,4 @@
+/locate structure chaos_emerald:purple_vault
+/tp @s 32640 ~ -32720
+/place structure chaos_emerald:red_vault
+/summon item ~ ~ ~ {Item:{id:"chaos_emerald:aqua_emerald",Count:1b}}
