@@ -13,5 +13,8 @@ public class HeartRenderHandler {
         if (event.getOverlay().id().toString().equals("minecraft:player_health")) { // Gui.HEARTS_LAYER is the overlay layer for hearts.
             event.setCanceled(true); // Cancels rendering of hearts.
         }
+        if (event.getOverlay().id().toString().equals("minecraft:armor_level")) {
+            event.setCanceled(true); // Cancels rendering of Armor
+        }
     }
 }

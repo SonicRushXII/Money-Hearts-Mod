@@ -6,7 +6,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.GameType;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import net.sonicrushxii.money_hearts.client_data.ClientTagHolder;
@@ -15,13 +14,18 @@ import java.util.Arrays;
 import java.util.List;
 
 public class HeartOverlay {
-    ;
     private static final ResourceLocation EMPTY_HEART = new ResourceLocation(MoneyHearts.MOD_ID,
             "textures/custom_hearts/empty.png");
     private static final ResourceLocation NORMAL_HEART_FULL = new ResourceLocation(MoneyHearts.MOD_ID,
             "textures/custom_hearts/normal_full.png");
     private static final ResourceLocation NORMAL_HEART_HALF = new ResourceLocation(MoneyHearts.MOD_ID,
             "textures/custom_hearts/normal_half.png");
+    private static final ResourceLocation ARMOR_EMPTY = new ResourceLocation(MoneyHearts.MOD_ID,
+            "textures/custom_hearts/armor_empty.png");
+    private static final ResourceLocation ARMOR_FULL = new ResourceLocation(MoneyHearts.MOD_ID,
+            "textures/custom_hearts/armor_full.png");
+    private static final ResourceLocation ARMOR_HALF = new ResourceLocation(MoneyHearts.MOD_ID,
+            "textures/custom_hearts/armor_half.png");
     private static final ResourceLocation ABSORPTION_HEART_FULL = new ResourceLocation(MoneyHearts.MOD_ID,
             "textures/custom_hearts/absorption_full.png");
     private static final ResourceLocation ABSORPTION_HEART_HALF = new ResourceLocation(MoneyHearts.MOD_ID,
@@ -93,6 +97,7 @@ public class HeartOverlay {
         int playerHp = (int) Math.ceil(player.getHealth());
         int maxHP = (int) Math.ceil(player.getMaxHealth());
         int absorption = (int) Math.ceil(player.getAbsorptionAmount());
+        int armorLevel = player.getArmorValue();
 
         List<ResourceLocation> iconTextures;
 
@@ -128,25 +133,36 @@ public class HeartOverlay {
         int y = screenHeight - 39; // Default Y position for hearts
 
         //Render Normal Hearts
-        for (int i = 0; i < (maxHP / 2) + (absorption / 2); ++i) {
+        int rowAmt=0;
+        for (int i = 0; i < (maxHP / 2) + (absorption / 2) + 10; ++i) {
             //Render Custom Hearts
             if (i < 10)
                 renderSlot(iconTextures.get(i), guiComponent,
                         x + ((textureDimensions[0] - 1) * i), y, textureDimensions);
-                //Render Normal Extra Hearts
-            else if (i < (maxHP / 2))
+            //Render Normal Extra Hearts
+            else if (i < (maxHP/2))
                 renderSlot((playerHp > i * 2 + 1) ? NORMAL_HEART_FULL : (playerHp == i * 2 + 1) ? NORMAL_HEART_HALF : EMPTY_HEART
                         , guiComponent,
                         x + ((textureDimensions[0] - 1) * (i % 10)),
                         y - ((textureDimensions[1]) * (i / 10)),
                         textureDimensions);
-                //Render Absorption hearts
-            else
+            //Render Absorption hearts
+            else if(i < ( (maxHP/2) + (absorption/2) ))
                 renderSlot(ABSORPTION_HEART_FULL,
                         guiComponent,
                         x + ((textureDimensions[0] - 1) * (i % 10)),
                         y - ((textureDimensions[1]) * (i / 10)),
                         textureDimensions);
+            rowAmt = Math.max(i/10,rowAmt);
         }
+
+        //Render Armor
+        if(armorLevel > 0)
+            for(int a = 0; a < 10; ++a)
+                renderSlot((armorLevel > a * 2 + 1) ? ARMOR_FULL : (armorLevel == a * 2 + 1) ? ARMOR_HALF : ARMOR_EMPTY
+                        , guiComponent,
+                        x + ((textureDimensions[0] - 1) * (a)),
+                        y - ((textureDimensions[1]) * (rowAmt)) - 1,
+                        textureDimensions);
     }
 }
