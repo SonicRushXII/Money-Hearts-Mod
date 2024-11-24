@@ -89,5 +89,17 @@
     },
     "done": true
   },
+  "minecraft:recipes/misc/iron_nugget_from_smelting": {
+    "criteria": {
+      "has_chainmail_chestplate": "2024-11-24 17:44:31 +0530"
+    },
+    "done": true
+  },
+  "minecraft:recipes/misc/iron_nugget_from_blasting": {
+    "criteria": {
+      "has_chainmail_chestplate": "2024-11-24 17:44:31 +0530"
+    },
+    "done": true
+  },
   "DataVersion": 3465
 }

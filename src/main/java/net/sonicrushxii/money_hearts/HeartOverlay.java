@@ -134,7 +134,7 @@ public class HeartOverlay {
 
         //Render Normal Hearts
         int rowAmt=0;
-        for (int i = 0; i < (maxHP / 2) + (absorption / 2) + 10; ++i) {
+        for (int i = 0; i < (maxHP / 2) + (absorption / 2); ++i) {
             //Render Custom Hearts
             if (i < 10)
                 renderSlot(iconTextures.get(i), guiComponent,
