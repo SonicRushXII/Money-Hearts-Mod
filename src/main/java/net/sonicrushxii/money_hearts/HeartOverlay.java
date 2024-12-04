@@ -133,7 +133,6 @@ public class HeartOverlay {
         int y = screenHeight - 39; // Default Y position for hearts
 
         //Render Normal Hearts
-        int rowAmt=0;
         for (int i = 0; i < (maxHP / 2) + (absorption / 2); ++i) {
             //Render Custom Hearts
             if (i < 10)
@@ -153,8 +152,10 @@ public class HeartOverlay {
                         x + ((textureDimensions[0] - 1) * (i % 10)),
                         y - ((textureDimensions[1]) * (i / 10)),
                         textureDimensions);
-            rowAmt = Math.max(i/10,rowAmt);
         }
+
+        int rowAmt = ((maxHP/2) + (absorption/2) - 1);
+        rowAmt = (rowAmt < 0)?rowAmt:rowAmt/10;
 
         //Render Armor
         if(armorLevel > 0)
@@ -162,7 +163,7 @@ public class HeartOverlay {
                 renderSlot((armorLevel > a * 2 + 1) ? ARMOR_FULL : (armorLevel == a * 2 + 1) ? ARMOR_HALF : ARMOR_EMPTY
                         , guiComponent,
                         x + ((textureDimensions[0] - 1) * (a)),
-                        y - ((textureDimensions[1]) * (rowAmt)) - 1,
+                        y - ((textureDimensions[1]) * (rowAmt+1)) - 1,
                         textureDimensions);
     }
 }

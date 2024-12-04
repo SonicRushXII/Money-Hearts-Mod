@@ -38,7 +38,6 @@ public class MoneyHearts
         MinecraftForge.EVENT_BUS.register(thisMod);
 
         MinecraftForge.EVENT_BUS.register(PlayerTagChangeHandler.class);
-        MinecraftForge.EVENT_BUS.register(HeartRenderHandler.class);
 
         // Register the item to a creative tab
         modEventBus.addListener(thisMod::addCreative);
